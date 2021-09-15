@@ -1,23 +1,23 @@
-# x-aws-vpc: "vpc-FILL_ME"
-# x-aws-logs_retention: 30
-# x-aws-cloudformation:
-#   Resources:
-#     LoadBalancer:
-#       Properties:
-#         #Scheme: internal
-#         Subnets:
-#         - subnet-FILL_ME
-#         - subnet-FILL_ME
-#         # Certificates: 
-#         #   - CertificateArn: "arn:aws:acm:certificate/123abc"
-#         # Protocol: HTTPS
-#     FrontendService:
-#       Properties:
-#         NetworkConfiguration:
-#           AwsvpcConfiguration:
-#             Subnets:
-#             - subnet-FILL_ME
-#             - subnet-FILL_ME
+x-aws-vpc: "vpc-0c162710adb66472c"
+x-aws-logs_retention: 30
+x-aws-cloudformation:
+  Resources:
+    LoadBalancer:
+      Properties:
+        #Scheme: internal
+        Subnets:
+        - subnet-045cd3067f7b8b27a
+        - subnet-0e778c244fd169e33
+        # Certificates: 
+        #   - CertificateArn: "arn:aws:acm:certificate/123abc"
+        # Protocol: HTTPS
+    FrontendService:
+      Properties:
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            Subnets:
+            - subnet-045cd3067f7b8b27a
+            - subnet-0e778c244fd169e33
             
 services:
   frontend:

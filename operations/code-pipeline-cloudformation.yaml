@@ -8,7 +8,7 @@ Parameters:
   GitHubOwner:
     Type: String
     AllowedPattern: '[A-Za-z0-9-]+'
-    Default: anshrma
+    Default: terell
   GitHubRepository:
     Type: String
     AllowedPattern: '[A-Za-z0-9-]+'
@@ -20,6 +20,7 @@ Parameters:
   DockerPullSecretsManagerArn:
     Type: String
     Description : ARN for Secrets Manager Stored Secret
+    Default: arn:aws:secretsmanager:us-east-1:065304427797:secret:pullcredentials-NZgF7U
   
 
 Resources:
@@ -140,8 +141,7 @@ Resources:
     Properties:
       AuthType: PERSONAL_ACCESS_TOKEN
       ServerType: GITHUB
-      Token: >-
-        {{resolve:secretsmanager:github-oauth-token:SecretString:GITHUB_ACCESS_TOKEN}}
+      Token: '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'
 
   CodeBuildProject:
     Type: 'AWS::CodeBuild::Project'
@@ -180,11 +180,11 @@ Resources:
         PrivilegedMode: true
         EnvironmentVariables:
           - Name: DOCKERHUB_USERNAME
-            Type: SECRETS_MANAGER 
-            Value: !Sub ${DockerPullSecretsManagerArn}:username
+            Type: PLAINTEXT 
+            Value: terell
           - Name: DOCKERHUB_PASSWORD
-            Type: SECRETS_MANAGER
-            Value: !Sub ${DockerPullSecretsManagerArn}:password
+            Type: PLAINTEXT
+            Value: 'f^l$7xcXG7^t'
 
   CodeBuildDeployProject:
     Type: 'AWS::CodeBuild::Project'
@@ -223,11 +223,11 @@ Resources:
         PrivilegedMode: true
         EnvironmentVariables:
           - Name: DOCKERHUB_USERNAME
-            Type: SECRETS_MANAGER 
-            Value: !Sub ${DockerPullSecretsManagerArn}:username
+            Type: PLAINTEXT 
+            Value: terell
           - Name: DOCKERHUB_PASSWORD
-            Type: SECRETS_MANAGER
-            Value: !Sub ${DockerPullSecretsManagerArn}:password
+            Type: PLAINTEXT
+            Value: 'f^l$7xcXG7^t'
           - Name: DOCKER_PULL_SECRETS_MANAGER
             Type: PLAINTEXT
             Value: !Ref DockerPullSecretsManagerArn
@@ -259,7 +259,7 @@ Resources:
                 Repo: !Ref GitHubRepository
                 Branch: main
                 PollForSourceChanges: false
-                OAuthToken: '{{resolve:secretsmanager:github-oauth-token:SecretString:GITHUB_ACCESS_TOKEN}}'
+                OAuthToken: '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'
               OutputArtifacts:
                 - Name: SourceCode
               RunOrder: 1
@@ -299,8 +299,7 @@ Resources:
     Properties:
       Authentication: GITHUB_HMAC
       AuthenticationConfiguration:
-        SecretToken: >-
-          {{resolve:secretsmanager:github-oauth-token:SecretString:GITHUB_ACCESS_TOKEN}}
+        SecretToken: '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'
       RegisterWithThirdParty: true
       Filters:
         - JsonPath: $.ref

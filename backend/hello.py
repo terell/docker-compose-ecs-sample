@@ -63,7 +63,7 @@ def listName():
     for c in rec:
         response = response  + '<div>   ' + c + '</div>'
     return response
-
+asdfasdfasdfasfdf
 @server.route('/add/<id>/<name>')
 def addName(id,name):
     global conn
@@ -76,6 +76,10 @@ def addName(id,name):
     for c in rec:
         response = response  + '<div>   ' + c + '</div>'
     return response
+
+@server.route('/test')
+def hello():
+    return "Hello World!"
 
 if __name__ == '__main__':
     server.run()
